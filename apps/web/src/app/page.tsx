@@ -109,7 +109,7 @@ export default function Home() {
         </p>
 
         {/* barre de recherche */}
-        <div className="mt-15">
+        <div className="mt-25">
           <input
             value={query}
             onChange={e => setQuery(e.target.value)}
