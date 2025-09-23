@@ -11,6 +11,8 @@ services:
       - "3001:3000"
     environment:
       - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+      - WATCHPACK_INTERVAL=1000 
     volumes:
       - ./apps/web:/app
       - web_node_modules:/app/node_modules
@@ -23,11 +25,14 @@ services:
       context: ./apps/api
       dockerfile: Dockerfile.dev
     working_dir: /app
-    command: pnpm start:dev
+    command: sh -c "pnpm prisma generate && pnpm start:dev"
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=1
+      - CHOKIDAR_INTERVAL=1000
+      - WATCHPACK_POLLING=true 
     volumes:
       - ./apps/api:/app
       - ./apps/api/prisma:/app/prisma

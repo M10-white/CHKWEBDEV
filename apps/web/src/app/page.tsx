@@ -22,7 +22,7 @@ const PROJECTS: Project[] = [
     description: 'Éditeur React avec suggestions de style/grammaire, auto-save et export.',
     year: 2025,
     tech: ['React', 'Next.js', 'Tailwind', 'Node.js'],
-    cover: '/apps/web/src/app/assets/img/projects/ghostwriting.jpg',
+    cover: '/projects/ghostwriting.jpg',
     href: '#',
     repo: '#',
   },
@@ -34,6 +34,7 @@ const PROJECTS: Project[] = [
     tech: ['HTML', 'CSS', 'JavaScript'],
     cover: '/projects/silent-talk.jpg',
     href: '#',
+    repo: 'https://github.com/M10-white/silent-talk',
   },
   {
     id: 'smilecrm',
@@ -42,6 +43,7 @@ const PROJECTS: Project[] = [
     year: 2025,
     tech: ['Next.js', 'NestJS', 'PostgreSQL', 'Docker'],
     cover: '/projects/smilecrm.jpg',
+    href: '#',
     repo: '#',
   },
 ];
@@ -87,15 +89,19 @@ export default function Home() {
       </div>
 
       {/* header */}
-      <section className="px-6 pt-16 pb-6 md:pt-24 max-w-6xl mx-auto">
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="text-4xl md:text-6xl font-extrabold tracking-tight"
+      <section className="px-6 pt-16 pb-6 md:pt-8 max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="relative"
         >
-          CHKWEBDEV
-        </motion.h1>
+          <img
+            src="/logo.svg"
+            alt="CHKWEBDEV logo"
+            className="w-[600px] h-auto ml-[-150px]"
+          />
+        </motion.div>
 
         {/* petite citation */}
         <p className="mt-4 text-neutral-300 max-w-2xl italic">
@@ -103,7 +109,7 @@ export default function Home() {
         </p>
 
         {/* barre de recherche */}
-        <div className="mt-7">
+        <div className="mt-15">
           <input
             value={query}
             onChange={e => setQuery(e.target.value)}
