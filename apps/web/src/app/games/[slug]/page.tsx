@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 export default function GameFullscreen({ params }: { params: Params }) {
   const src = `/games/${params.slug}/index.html`;
   return (
-    <main className="min-h-dvh bg-black">
+    <main>
       <div className="relative w-full aspect-video md:aspect-[16/9] max-w-6xl mx-auto mt-6 md:mt-10">
         <iframe
           src={src}

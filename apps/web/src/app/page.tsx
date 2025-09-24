@@ -18,43 +18,124 @@ type Project = {
 const PROJECTS: Project[] = [
   {
     id: 'ghostwriting',
-    title: 'GhostWriting — éditeur IA',
+    title: 'GhostWriting — Éditeur IA',
     description: 'Éditeur React avec suggestions de style/grammaire, auto-save et export.',
     year: 2025,
     tech: ['React', 'Next.js', 'Tailwind', 'Node.js'],
     cover: '/projects/ghostwriting.jpg',
-    href: '#',
+  },
+  {
+    id: 'netflux',
+    title: 'Netflux — OMDB API',
+    description: 'Carrousel de films populaires, recherche, et liste infinie de films aléatoires.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'OMDB API'],
+    cover: '/projects/netflux.jpg',
+    href: 'https://m10-white.github.io/filmJavascript/',
     repo: '#',
   },
   {
-    id: 'silent-talk',
-    title: 'Silent Talk — jeu web',
-    description: 'Quiz psychologique (horror vibes), audio, animations et scoring.',
-    year: 2025,
-    tech: ['HTML', 'CSS', 'JavaScript'],
-    cover: '/projects/silent-talk.jpg',
-    href: '#',
-    repo: 'https://github.com/M10-white/silent-talk',
-  },
-  {
-    id: 'smilecrm',
-    title: 'SmileCRM — mini CRM open source',
-    description: 'Front Next.js + API Node, auth, leads, déploiement Docker simple.',
-    year: 2025,
-    tech: ['Next.js', 'NestJS', 'PostgreSQL', 'Docker'],
-    cover: '/projects/smilecrm.jpg',
-    href: '#',
+    id: 'doc-summarizer',
+    title: 'DocSummarizer — App IA',
+    description: 'Résumé automatique multi-langue pour textes/PDF/Word via NLP.',
+    tech: ['React', 'Tailwind', 'FastAPI', 'HuggingFace', 'TypeScript'],
+    cover: '/projects/doc-summarizer.jpg',
     repo: '#',
   },
+  {
+    id: 'covit',
+    title: 'CovIT — Plateforme OMS (COVID-19)',
+    description: 'Suivi/visualisation et manipulation sécurisé des données épidémiques.',
+    tech: ['Node.js', 'TypeScript', 'Python', 'Angular', 'MongoDB', 'Jupyter', 'Power BI', 'Docker'],
+    cover: '/projects/covit.jpg',
+  },
+  {
+    id: 'apiavocado',
+    title: 'APIavocado — Prédiction de prix',
+    description: "UI Vue.js qui consomme une API Flask pour prédire le prix de l'avocat + affichage CSV.",
+    tech: ['Vue.js', 'Flask', 'Python', 'JavaScript', 'HTML', 'SCSS', 'Node.js'],
+    cover: '/projects/apiavocado.jpg',
+    repo: '#',
+  },
+  {
+    id: 'timelapse-counter',
+    title: 'Timelapse Counter — Générateur vidéo',
+    description: 'Décompte animé jusqu’à N, export en .webm pour présentations/shorts.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'Node.js'],
+    cover: '/projects/timelapse-counter.jpg',
+    href: 'https://m10-white.github.io/timelapse-counter/',
+    repo: '#',
+  },
+  {
+    id: 'monplusbeauvoyage',
+    title: 'MonPlusBeauVoyage — Site d’agence',
+    description: 'Mise en ligne du catalogue voyages de l’agence avec présentation claire des offres.',
+    tech: ['WordPress', 'HTML', 'SCSS', 'PHP', 'REST API'],
+    cover: '/projects/monplusbeauvoyage.jpg',
+    href: 'https://monplusbeauvoyage1.wordpress.com/',
+  },
+  {
+    id: 'siinfo',
+    title: 'SIINFO — Site vitrine',
+    description: "Présentation des services SIInfo (systèmes d’information fiables et sécurisés).",
+    tech: ['WordPress', 'HTML', 'SCSS', 'PHP', 'REST API'],
+    cover: '/projects/siinfo.jpg',
+    href: 'https://siinfo07.wordpress.com/',
+  },
+  {
+    id: 'boissier',
+    title: 'Boissier Électricité — Site vitrine',
+    description: 'Site de présentation (électricité, informatique, air comprimé, eau) via CMS amen.fr.',
+    tech: ['SimplySite', 'HTML', 'SCSS', 'PHP'],
+    cover: '/projects/boissier.jpg',
+    href: 'https://www.electricite-boissier.fr/',
+  },
+  {
+    id: 'bigroup-client',
+    title: 'BIGroup — CLIENT (CRM)',
+    description: 'Logiciel interne pour centraliser, organiser, rechercher et exporter les infos clients.',
+    tech: ['HTML', 'SCSS', 'PHP', 'JavaScript', 'MySQL'],
+    cover: '/projects/bigroup-client.jpg',
+  },
+  {
+    id: 'asa-du-vercors',
+    title: 'A.S.A du Vercors — Site vitrine',
+    description: 'Création sur-mesure puis migration vers WordPress, ajout de pages et amélioration des modules existants.',
+    tech: ['WordPress', 'HTML', 'SCSS', 'PHP', 'JavaScript', 'REST API'],
+    cover: '/projects/asa-vercors.jpg',
+    href: 'https://asaduvercors.fr/',
+  },
+  {
+    id: 'bigroup-stock',
+    title: 'BIGroup — STOCK (Matériel IT)',
+    description: 'Gestion de stock : entrées/sorties, historique détaillé, traçabilité du matériel.',
+    tech: ['HTML', 'SCSS', 'PHP', 'JavaScript', 'MySQL'],
+    cover: '/projects/bigroup-stock.jpg',
+  },
+  {
+    id: 'scf-cordeliere',
+    title: 'SCF Cordelière — Site vitrine',
+    description: 'Plateforme pour présenter activités, objectifs et services de la SCF.',
+    tech: ['WordPress', 'HTML', 'SCSS', 'PHP', 'JavaScript', 'REST API'],
+    cover: '/projects/scf-cordeliere.jpg',
+    href: 'https://scfcordeliere.fr/',
+  }
 ];
 
 const PINNED_TECHS = [
   'All',
-  'Next.js',
+  'WordPress',
+  'PHP',
   'React',
+  'Vue.js',
+  'Angular',
+  'Next.js',
   'TypeScript',
-  'NestJS',
   'Node.js',
+  'Python',
+  'FastAPI',
+  'MongoDB',
+  'MySQL',
+  'Docker',
   'Tailwind',
   'PostgreSQL',
 ] as const;
@@ -105,7 +186,7 @@ export default function Home() {
 
         {/* petite citation */}
         <p className="mt-4 text-neutral-300 max-w-2xl italic">
-          « Un bon projet allie clarté, performance et sécurité&nbsp;— le reste n’est que détail. »
+          « Chaque ligne de code est une brique posée vers un monde plus créatif. »
         </p>
 
         {/* barre de recherche */}
@@ -118,36 +199,65 @@ export default function Home() {
           />
         </div>
 
-        {/* filtres : rangée “pinned” + menu complet */}
-        <div className="mt-5 flex flex-col gap-3">
-          {/* pinned row (scrollable) */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1">
-            {PINNED_TECHS.map(label => (
-              <Chip key={label} active={tech === label} onClick={() => setTech(label)}>
-                {label}
-              </Chip>
-            ))}
-            <button
-              onClick={() => setShowAllTechs(s => !s)}
-              className="ml-auto shrink-0 text-sm px-3 py-2 rounded-full border border-neutral-700 bg-neutral-900 hover:border-neutral-500"
-            >
-              {showAllTechs ? 'Masquer toutes les technos' : 'Toutes les technos'}
-            </button>
+        {/* filtres*/}
+        <div className="mt-5 space-y-3">
+          {/* rangée scrollable, scrollbar masquée + bords en dégradé */}
+          <div className="relative">
+            {/* bords en fondu */}
+            <div className="pointer-events-none absolute left-0 top-0 h-full w-10 bg-gradient-to-r from-neutral-950 to-transparent" />
+            <div className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-neutral-950 to-transparent" />
+
+            <div className="relative flex items-center gap-2">
+              {/* zone scrollable */}
+              <div
+                className={[
+                  'flex-1 overflow-x-auto scroll-smooth whitespace-nowrap pr-10',
+                  '[-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+                ].join(' ')}
+              >
+                <div className="inline-flex items-center gap-2">
+                  {PINNED_TECHS.map((label) => (
+                    <Chip
+                      key={label}
+                      active={tech === label}
+                      onClick={() => setTech(label)}
+                    >
+                      {label}
+                    </Chip>
+                  ))}
+                </div>
+              </div>
+
+              {/* bouton + fondu */}
+              <div className="relative shrink-0">
+                {/* le fondu à gauche du bouton */}
+                <div className="absolute left-[-24px] top-0 bottom-0 w-6 bg-gradient-to-l from-neutral-950/80 to-transparent pointer-events-none" />
+                <button
+                  onClick={() => setShowAllTechs(s => !s)}
+                  className="relative z-10 px-4 py-2 rounded-full text-sm border border-neutral-700 bg-neutral-900 hover:border-neutral-500"
+                >
+                  {showAllTechs ? 'Masquer les technos' : 'Toutes les technos'}
+                </button>
+              </div>
+            </div>
           </div>
 
+          {/* grille complète repliable */}
           <AnimatePresence initial={false}>
             {showAllTechs && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                className="grid gap-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
+                className="rounded-2xl border border-neutral-800 bg-neutral-900/50 p-3"
               >
-                {ALL_TECHS.map(t => (
-                  <Chip key={t} active={tech === t} onClick={() => setTech(t)}>
-                    {t}
-                  </Chip>
-                ))}
+                <div className="grid gap-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                  {ALL_TECHS.map((t) => (
+                    <Chip key={t} active={tech === t} onClick={() => setTech(t)}>
+                      {t}
+                    </Chip>
+                  ))}
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -187,10 +297,11 @@ function Chip({
     <button
       onClick={onClick}
       className={[
-        'shrink-0 px-4 py-2 rounded-full text-sm border transition',
+        'shrink-0 px-4 py-2 rounded-full text-sm transition',
+        'border backdrop-blur',
         active
-          ? 'bg-white text-black border-white'
-          : 'bg-neutral-900 border-neutral-800 hover:border-neutral-600',
+          ? 'bg-white text-black border-white shadow-[0_0_0_1px_#fff]'
+          : 'bg-neutral-900/70 border-neutral-800 hover:border-neutral-600 hover:bg-neutral-900',
       ].join(' ')}
     >
       {children}
