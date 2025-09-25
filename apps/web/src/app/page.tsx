@@ -30,8 +30,8 @@ const PROJECTS: Project[] = [
     description: 'Carrousel de films populaires, recherche, et liste infinie de films aléatoires.',
     tech: ['HTML', 'CSS', 'JavaScript', 'OMDB API'],
     cover: '/projects/netflux.jpg',
-    href: 'https://m10-white.github.io/filmJavascript/',
-    repo: '#',
+    href: 'https://m10-white.github.io/netflux/',
+    repo: 'https://github.com/M10-white/netflux.git',
   },
   {
     id: 'doc-summarizer',
@@ -39,7 +39,7 @@ const PROJECTS: Project[] = [
     description: 'Résumé automatique multi-langue pour textes/PDF/Word via NLP.',
     tech: ['React', 'Tailwind', 'FastAPI', 'HuggingFace', 'TypeScript'],
     cover: '/projects/doc-summarizer.jpg',
-    repo: '#',
+    repo: 'https://github.com/M10-white/DocSummarizer-AI-frontend.git',
   },
   {
     id: 'covit',
@@ -54,7 +54,7 @@ const PROJECTS: Project[] = [
     description: "UI Vue.js qui consomme une API Flask pour prédire le prix de l'avocat + affichage CSV.",
     tech: ['Vue.js', 'Flask', 'Python', 'JavaScript', 'HTML', 'SCSS', 'Node.js'],
     cover: '/projects/apiavocado.jpg',
-    repo: '#',
+    repo: 'https://github.com/M10-white/APIavocado.git',
   },
   {
     id: 'timelapse-counter',
@@ -63,7 +63,7 @@ const PROJECTS: Project[] = [
     tech: ['HTML', 'CSS', 'JavaScript', 'Node.js'],
     cover: '/projects/timelapse-counter.jpg',
     href: 'https://m10-white.github.io/timelapse-counter/',
-    repo: '#',
+    repo: 'https://github.com/M10-white/timelapse-counter.git',
   },
   {
     id: 'monplusbeauvoyage',

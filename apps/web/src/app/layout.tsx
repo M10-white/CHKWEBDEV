@@ -1,33 +1,25 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import type { Metadata } from 'next';
+import './globals.css';
+import Sidebar from '@/components/Sidebar';
 
 export const metadata: Metadata = {
-  title: "CHKWEBDEV",
-  description: "Created by Brahim Chaouki",
+  title: 'CHKWEBDEV',
+  description: 'Portfolio',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className="bg-neutral-950 text-white">
+        <Sidebar />
+        <div
+          style={{ paddingLeft: 'var(--sidebar-w, 56px)' }}
+          className="transition-[padding] duration-300"
+        >
+          <div className="relative min-h-dvh bg-[#0b0b0b]">
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );
