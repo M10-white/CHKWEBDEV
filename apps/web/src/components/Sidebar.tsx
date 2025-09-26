@@ -11,8 +11,8 @@ const NAV = [
   { href: '/games', label: 'Jeux', icon: Gamepad2 },
 ] as const;
 
-const COLLAPSED_W = 56;
-const EXPANDED_W = 200;
+const COLLAPSED_W = 60;
+const EXPANDED_W = 150;
 
 type ItemProps = {
   href: string;
@@ -90,12 +90,12 @@ export default function Sidebar() {
           ))}
         </nav>
 
-        <div className="mt-auto grid gap-2 px-2 pb-2">
+        <div className="mt-auto grid gap-2 pr-2 pl-0 pb-2">
           <a
             href="https://github.com/M10-white"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 text-sm text-neutral-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500/50"
+            className="flex items-center justify-center w-full text-neutral-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500/50"
             title="GitHub"
           >
             <Github size={18} />
@@ -106,7 +106,7 @@ export default function Sidebar() {
         {/* bouton dépliage/repliage */}
         <button
           onClick={() => setExpanded((v) => !v)}
-          className="mx-2 mb-1 mt-2 flex items-center justify-center rounded-lg border border-neutral-800 bg-neutral-900/80 py-2 hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500/50"
+          className="ml-0 mr-2 mb-1 mt-2 flex items-center justify-center rounded-lg border border-neutral-800 bg-neutral-900/80 py-2 hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500/50"
           title={expanded ? 'Replier' : 'Déplier'}
           aria-expanded={expanded}
         >
