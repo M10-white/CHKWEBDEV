@@ -12,27 +12,53 @@ type Game = {
   tags: string[]; 
   cover: string;
   src: string; 
+  link: string;
 };
 
 const GAMES: Game[] = [
   {
     slug: 'silent-talk',
     title: 'Silent Talk',
-    description: 'Petit jeu narratif/quiz psychologique avec ambiance sonore.',
+    description: 'Petit jeu narratif/quiz horreur psychologique avec ambiance sonore.',
     year: 2025,
-    tags: ['Narratif', 'Quiz', 'Audio'],
+    tags: ['Narratif', 'Quiz', 'Audio', 'Horreur'],
     cover: '/games/silent-talk/cover.jpg',
     src: '/games/silent-talk/index.html',
+    link: '#',
   },
   {
-    slug: 'runner-neo',
-    title: 'Runner NEO',
-    description: 'Runner arcade minimaliste — réflexes et patterns.',
-    year: 2024,
-    tags: ['Arcade', 'Action'],
-    cover: '/games/runner-neo/cover.jpg',
-    src: '/games/runner-neo/index.html',
+    slug: 'mr-dodge',
+    title: 'Mr. DODGE',
+    description:
+      'Joué par plus de 100 personnes. Jeu d’esquive dynamique qui met à l’épreuve les réflexes et obstacles/ennemis dans un environnement évolutif.',
+    year: 2023,
+    tags: ['Arcade', 'Action', 'Musique', "Pixel Art", '2D'],
+    cover: '/games/mr-dodge/cover.jpg',
+    src: '/games/mr-dodge/index.html',
+    link: 'https://github.com/M10-white/MR.DODGE',
   },
+  {
+    slug: 'lost-labyrinthe',
+    title: 'Lost Labyrinthe',
+    description:
+      'Labyrinthe version horreur. Avancer dans le noir, laby généré aléatoirement, collecter des points et trouver la sortie. Immersif & simple.',
+    year: 2024,
+    tags: ['Horreur', 'Labyrinthe', 'Parcour', 'Pixel Art', '2D'],
+    cover: '/games/lost-labyrinthe/cover.jpg',
+    src: '/games/lost-labyrinthe/index.html',
+    link: 'https://github.com/M10-white/lostLabyrinthe',
+  },
+  {
+    slug: 'eco-quest',
+    title: 'ECO QUEST',
+    description:
+      'Projet Nuit de l’Info 2023. Outil ludique pour démêler vraies solutions et intox sur le climat, avec données chiffrées & sources fiables.',
+    year: 2023,
+    tags: ['Quiz', 'Charlie', 'Educatif', "Pixel Art"],
+    cover: '/games/eco-quest/cover.jpg',
+    src: 'http://localhost:8082/',
+    link: 'https://github.com/diogeek/nuitdelinfo2023',
+  }
 ];
 
 const PINNED_TAGS = ['All', 'Arcade', 'Narratif', 'Puzzle', 'Action', 'Jam'] as const;

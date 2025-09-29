@@ -1,0 +1,152 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background: #e74c3c;
+    font-family: 'Lato', sans-serif;
+  }
+
+  table {
+    font-size: 1em;
+  }
+
+  .ui-draggable, .ui-droppable {
+    background-position: top;
+  }
+
+  h1{
+    color: #fff;
+    text-align: center; 
+    font-weight: 200;
+    font-size: 80px;
+  }
+  h1 span{
+    display: block;
+    font-size: 40px;
+  }
+  
+  .holder{
+    width: 600px;
+    margin: 0px auto;
+  }
+  
+  li {
+    list-style: none;
+  }
+  
+  li a {
+    text-decoration: none;
+    color: #fff;
+    margin: 10px;
+    width: 150px;
+    background: #eee;
+    padding: 10px;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    cursor: move;
+  }
+  
+  ul li:first-child a{ background: #34495e }
+  ul li:nth-child(2) a{ background: #3498db }
+  ul li:nth-child(3) a{ background: #f39c12 }
+  ul li:nth-child(4) a{ background: #27ae60 }
+  ul li:last-child a{ background: #9b59b6 }
+  
+  *[draggable=true] {
+    -moz-user-select:none;
+    -khtml-user-drag: element;
+    cursor: move;
+  }
+  
+  *:-khtml-drag {
+    background-color: rgba(238,238,238, 0.5);
+  }
+  
+  li a:hover:after {
+    content: ' (drag me)';
+  }
+  
+  ul {
+    margin-left: 200px;
+    min-height: 300px;
+  }
+  
+  li.over {
+    border-color: #333;
+    background: #ccc;
+  }
+  
+  .corbeille {
+    width: 250px;
+    height: auto;
+  }
+
+  #bin {
+    height: 250px;
+    width: 166px;
+    float: left;
+    position: relative;
+    margin-top: 0;
+  }
+  #bin img {
+    transition: all 0s; /* Disable transition effect */
+  }
+
+  #bin img:hover {
+    opacity: 0;
+  }
+  
+  #bin p {
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    width: 166px;
+    font-size: 32px;
+    color: #fff;
+    top: -80px;
+    left: 40px;
+  }
+  
+  #draggable, #draggable2, #droppable {
+    width: 100px;
+    height: 100px;
+    padding: 0.5em;
+    margin: 10px;
+  }
+  
+  #draggable2 {
+    float: right;
+  }
+
+  #droppable {
+    float: middle;
+    /*margin: ;*/
+  }
+
+  /*font-face*/
+  @font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 100;
+    src: local('Lato Hairline'), local('Lato-Hairline'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/boeCNmOCCh-EWFLSfVffDg.woff) format('woff');
+  }
+  @font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Lato Light'), local('Lato-Light'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/KT3KS9Aol4WfR6Vas8kNcg.woff) format('woff');
+  }
+  @font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Lato Regular'), local('Lato-Regular'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
+  }
+  @font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Lato Bold'), local('Lato-Bold'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/wkfQbvfT_02e2IWO3yYueQ.woff) format('woff');
+  }
+  

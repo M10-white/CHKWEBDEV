@@ -1,0 +1,88 @@
+@font-face {
+    font-family: 'Pixel-Art'; /* Nom que vous souhaitez donner à la police */
+    src: url('assets/pixelart.ttf') format('truetype'); /* Remplacez le chemin avec le chemin réel de votre fichier de police */
+}
+
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
+body {
+    font-family: 'Pixel-Art', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('img/background.gif');
+    background-size: cover; /* Ajuste la taille de l'image pour couvrir tout le contenu */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image en arrière-plan */
+}
+
+.container {
+    text-align: center;
+    color: #ecf0f1; /* Couleur du texte */
+}
+
+h1 {
+    font-size: 2em;
+}
+
+.buttons {
+    margin-top: 80px;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.btn {
+    font-size: 1.2em;
+    font-family: 'Press Start 2P', cursive;
+    width: 200px;
+    height: 70px;
+    background: #3FA142;
+    border: 0px;
+    position: relative;
+    box-shadow: 
+      inset -4px 2px 1px 1px grey,
+      inset -4px -2px 1px 1px lightgray,
+      inset 4px 0px 1px 1px lightgray;   
+  }
+  
+  .btn:hover {
+    cursor: pointer;
+      background-color: rgb(7, 90, 32);
+  }
+  
+  .btn:active {
+    top: 5px;
+    box-shadow: 
+      -4px 2px 1px 1px grey,
+      -4px -2px 1px 1px lightgray,
+      4px 0px 1px 1px lightgray; 
+  }
+  
+  .btn::after {
+    content: '';
+    background: black;
+    position: absolute;
+    left: -2.5%;
+    top: 0;
+    width: 105%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  .btn::before {
+    content: '';
+    background: black;
+    position: absolute;
+    left: 0;
+    top: -5%;
+    width: 100%;
+    height: 113%;
+    z-index: -1;
+  }

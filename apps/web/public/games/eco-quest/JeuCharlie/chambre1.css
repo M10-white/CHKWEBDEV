@@ -1,0 +1,30 @@
+
+body{
+    padding: auto;
+    
+}
+img{
+    width: 100%;
+    height: 80%;
+    background-size: cover;
+    pointer-events: none;
+}
+.image-wrapper {
+    position: relative;
+    display: inline-block;
+    
+    overflow: hidden; /* Empêche le débordement des enfants */
+}
+
+
+
+.link-overlay {
+    position: absolute;
+    top: 50%; /* Ajustez la position verticale au besoin */
+    left: 16%; /* Ajustez la position horizontale au besoin */
+    width: 8%; /* Ajustez la largeur au besoin */
+    height: 10%; /* Ajustez la hauteur au besoin */
+    transform: translate(-50%, -50%); /* Centre la zone cliquable */
+    cursor: pointer;
+  
+  }

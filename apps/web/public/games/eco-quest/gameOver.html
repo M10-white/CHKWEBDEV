@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/index.css">
+    <title>Game Over</title>
+</head>
+<body>
+    <div class="container">
+        <img src="assets/img/over.png" style="width: 50%;">
+        <p style="color: rgb(22, 22, 22); font-weight:bold;">Score: <span id="score-true"></span></p>
+        <a href="index.html"><button class="btn" >Rejouer</button></a>
+    </a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+ 
+    <script>
+window.onload = function() {
+    var scoreTrue = sessionStorage.getItem("scoreTrue");
+    $("#score-true").text(scoreTrue);
+  }
+      </script>
+</body>
+</html>

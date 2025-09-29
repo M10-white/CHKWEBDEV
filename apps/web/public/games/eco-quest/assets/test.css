@@ -1,0 +1,168 @@
+@font-face {
+    font-family: 'Pixel-Art'; /* Nom que vous souhaitez donner à la police */
+    src: url('assets/pixelart.ttf') format('truetype'); /* Remplacez le chemin avec le chemin réel de votre fichier de police */
+}
+
+body {
+    font-family: 'Pixel-Art', sans-serif;
+    background-image: url('img/backgroundtest.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0; /* Supprime les marges par défaut du corps */
+    height: 100vh; /* Assure que le corps occupe la hauteur complète de la fenêtre */
+    overflow-x: auto; /* Permet le défilement horizontal */
+
+}
+
+.titre2 {
+    position: absolute;
+    top: 5%;
+    right: 10%;
+    width: 50%;
+    opacity: 50%;
+}
+
+.score {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+}
+
+.folder {
+    position: absolute;
+    right: 5%;
+    bottom: 40%;
+}
+
+.draggable-container {
+    position: absolute;
+    top: 35%;
+    left: 40%;
+    right: 60%;
+    transform: translate(-50%, -50%);
+}
+
+.draggable { 
+    user-select:none;
+    width: 300px;
+    height: 170px;
+    padding: 5em; 
+    position: absolute; 
+}
+
+.droppable { 
+    user-select:none;
+    width: 150px;
+    height: 150px;
+    padding: 0.5em;
+    position: absolute; 
+}
+
+#droppable-true { 
+    right: 121px;
+    top: 308px;
+    width: 352px;
+    height: 225px;
+    visibility: hidden;
+} 
+
+#droppable-false { 
+    left: 60px;
+    top: 471px;
+    width: 390px;
+    height: 308px;
+    visibility: hidden;
+} 
+
+img { 
+    max-width: 100%;
+    height: auto; 
+}
+.pixel-font {
+    font-family: 'PixelArt', sans-serif;
+}
+
+/* Exemple de style pour chaque caractère */
+.pixel-font:before {
+    content: url('assets/pixelart.ttf'); /* Remplacez le chemin avec le chemin réel de votre image */
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.btn {
+    font-size: 1.2em;
+    font-family: 'Press Start 2P', cursive;
+    width: 200px;
+    height: 70px;
+    background: #6a4543;
+    border: 0px;
+    position: absolute;
+    bottom: 20%;
+    right: 10%;
+    box-shadow: 
+      inset -4px 2px 1px 1px grey,
+      inset -4px -2px 1px 1px lightgray,
+      inset 4px 0px 1px 1px lightgray;   
+  }
+  
+  .btn:hover {
+    cursor: pointer;
+      background-color: #573836;
+  }
+  
+  .btn:active {
+    box-shadow: 
+      -4px 2px 1px 1px grey,
+      -4px -2px 1px 1px lightgray,
+      4px 0px 1px 1px lightgray; 
+  }
+  
+  .btn::after {
+    content: '';
+    background: black;
+    position: absolute;
+    left: -2.5%;
+    top: 0;
+    width: 105%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  .btn::before {
+    content: '';
+    background: black;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 113%;
+    z-index: -1;
+  }
+
+@media (max-width: 768px) {
+    .draggable-container {
+        width: 80%;
+    }
+}
+
+@media (max-width: 576px) {
+    .draggable-container {
+        width: 90%;
+    }
+
+    .draggable {
+        padding: 2em;
+    }
+
+    .droppable {
+        width: 100px;
+        height: 100px;
+        padding: 0.3em;
+    }
+}
+
+

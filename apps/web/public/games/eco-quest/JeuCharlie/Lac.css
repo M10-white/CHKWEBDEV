@@ -1,0 +1,48 @@
+
+body{
+    padding: auto;
+    
+}
+img{
+    width: 100%;
+    height: 80%;
+    background-size: cover;
+    pointer-events: none;
+}
+.image-wrapper {
+    position: relative;
+    display: inline-block;
+    
+    overflow: hidden; /* Empêche le débordement des enfants */
+}
+
+.link-overlay {
+  position: absolute;
+  top: 60%; /* Ajustez la position verticale au besoin */
+  left: 20%; /* Ajustez la position horizontale au besoin */
+  width: 20%; /* Ajustez la largeur au besoin */
+  height: 10%; /* Ajustez la hauteur au besoin */
+  transform: translate(-50%, -50%); /* Centre la zone cliquable */
+  cursor: pointer;
+
+}
+
+.link-overlay1 {
+    position: absolute;
+    top: 30%; /* Ajustez la position verticale au besoin */
+    right: 30%; /* Ajustez la position horizontale au besoin */
+    width: 40%; /* Ajustez la largeur au besoin */
+    height: 20%; /* Ajustez la hauteur au besoin */
+    transform: translate(-50%, -50%); /* Centre la zone cliquable */
+    cursor: pointer;
+  }
+
+.link-overlay2 {
+position: absolute;
+top: 30%; /* Ajustez la position verticale au besoin */
+right: 80%; /* Ajustez la position horizontale au besoin */
+width: 40%; /* Ajustez la largeur au besoin */
+height: 20%; /* Ajustez la hauteur au besoin */
+transform: translate(-50%, -50%); /* Centre la zone cliquable */
+cursor: pointer;
+}
