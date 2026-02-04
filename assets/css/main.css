@@ -1,0 +1,22 @@
+body {
+    font-family: system-ui, sans-serif;
+    background: #0f172a;
+    color: #e5e7eb;
+    margin: 0;
+}
+
+.site-header {
+    padding: 1rem;
+    background: #020617;
+    display: flex;
+    justify-content: space-between;
+}
+
+a {
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+.container {
+    padding: 2rem;
+}
