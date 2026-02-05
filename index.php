@@ -1,5 +1,5 @@
 <?php
-$time_to_wait = 3456000;
+$maintenance_end = strtotime('2026-04-01 08:00:00');
 $site_title = 'Site Maintenance';
 $contact_link = 'https://www.linkedin.com/company/chkwebdev/';
 $logo_path = 'assets/img/favicon.svg';
@@ -107,14 +107,8 @@ $translations = array(
     ),
 );
 
-$protocol = $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
-if (!in_array($protocol, array('HTTP/1.1', 'HTTP/2', 'HTTP/2.0'), true)) {
-    $protocol = 'HTTP/1.0';
-}
-
-header("$protocol 503 Service Unavailable", true, 503);
+header('HTTP/1.1 503 Service Unavailable');
 header('Content-Type: text/html; charset=utf-8');
-header('Retry-After: ' . $time_to_wait);
 ?>
 
 <!doctype html>
@@ -124,7 +118,7 @@ header('Retry-After: ' . $time_to_wait);
     <meta charset="utf-8">
     <meta name="robots" content="noindex">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="path/to/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -283,32 +277,36 @@ header('Retry-After: ' . $time_to_wait);
             <?php echo $legal_info; ?>
         </footer>
     </div>
-
     <script>
-        const countDay = new Date(Date.now() + <?php echo $time_to_wait ?> * 1000);
+        const maintenanceEnd = <?php echo $maintenance_end * 1000; ?>;
+
         const countDown = () => {
-            const now = new Date();
-            const counter = countDay - now;
+            const now = Date.now();
+            const counter = maintenanceEnd - now;
+
             const second = 1000;
             const minute = second * 60;
             const hour = minute * 60;
             const day = hour * 24;
+
             const textDay = Math.floor(counter / day);
             const textHour = Math.floor((counter % day) / hour);
             const textMinute = Math.floor((counter % hour) / minute);
             const textSecond = Math.floor((counter % minute) / second);
 
-            if (textSecond < 0) {
+            if (counter <= 0) {
                 window.location.href = '<?php echo $redirect_url; ?>';
-            } else {
-                document.querySelector(".day").innerText = textDay;
-                document.querySelector(".hour").innerText = textHour;
-                document.querySelector(".minute").innerText = textMinute;
-                document.querySelector(".second").innerText = textSecond;
+                return;
             }
+
+            document.querySelector(".day").innerText = textDay;
+            document.querySelector(".hour").innerText = textHour;
+            document.querySelector(".minute").innerText = textMinute;
+            document.querySelector(".second").innerText = textSecond;
         };
+
         countDown();
         setInterval(countDown, 1000);
-    </script>
+</script>
 </body>
 </html>
