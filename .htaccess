@@ -1,16 +1,7 @@
 RewriteEngine On
-Options -Indexes
 
-ErrorDocument 404 /404.php
+RewriteRule ^game$ index.php?page=games [L]
 
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-
-RewriteRule ^$ index.php [L]
-RewriteRule ^projects/?$ projects/index.php [L]
-RewriteRule ^projects/([a-zA-Z0-9-_]+)/?$ projects/show.php?slug=$1 [L]
-RewriteRule ^games/?$ games/index.php [L]
-RewriteRule ^games/([a-zA-Z0-9-_]+)/?$ games/play.php?slug=$1 [L]
-RewriteRule ^contact/?$ contact.php [L]
-RewriteRule ^.*$ 404.php [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
