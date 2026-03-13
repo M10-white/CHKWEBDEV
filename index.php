@@ -9,5 +9,3 @@ if ($page === 'games') {
 } else {
     require 'pages/home.php';
 }
-
-require 'partials/footer.php';
