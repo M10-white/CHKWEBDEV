@@ -1,11 +1,5 @@
-<?php
+<?php require __DIR__ . "/partials/header.php"; ?>
 
-$page = $_GET['page'] ?? 'home';
+<?php require __DIR__ . "/pages/home.php"; ?>
 
-require 'partials/header.php';
-
-if ($page === 'games') {
-    require 'pages/games.php';
-} else {
-    require 'pages/home.php';
-}
+<?php require __DIR__ . "/partials/footer.php"; ?>

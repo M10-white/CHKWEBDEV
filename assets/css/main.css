@@ -1,51 +1,176 @@
+/* =========================
+   BASE
+========================= */
+
 body {
     margin: 0;
-    background: #02030a;
-    color: white;
-    font-family: Inter, sans-serif;
+    background: radial-gradient(circle at center, #0b1220, #050510);
     overflow: hidden;
+    font-family: Inter;
+    color: white;
 }
 
-#scene {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
+/* =========================
+   PERSONNAGE
+========================= */
 
-canvas {
-    display: block;
-}
+#character {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
 
-#center-logo {
+    background: radial-gradient(circle at 30% 30%, #7dd3fc, #3b82f6 60%, #1e40af);
+
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 10;
-    pointer-events: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 0 80px rgba(59, 130, 246, 0.4),
+        inset 0 -10px 30px rgba(0, 0, 0, 0.2);
+
+    transition: 0.3s;
 }
 
-#center-logo img {
-    width: 260px;
-    height: auto;
-    animation: logoGlow 5s ease-in-out infinite;
+/* respiration */
+.sleep {
+    animation: float 4s ease-in-out infinite;
 }
 
-@keyframes logoGlow {
-
+@keyframes float {
     0% {
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+        transform: translate(-50%, -50%) scale(1);
     }
 
     50% {
-        filter: drop-shadow(0 0 40px rgba(100, 200, 255, 0.6));
+        transform: translate(-50%, -53%) scale(1.05);
     }
 
     100% {
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+        transform: translate(-50%, -50%) scale(1);
     }
+}
 
+/* =========================
+   YEUX
+========================= */
+
+.eyes {
+    display: flex;
+    gap: 25px;
+}
+
+.eye {
+    width: 38px;
+    height: 38px;
+    background: #f8fafc;
+    border-radius: 50%;
+}
+
+.pupil {
+    width: 12px;
+    height: 12px;
+    background: #020617;
+    border-radius: 50%;
+}
+
+/* yeux fermés */
+.sleep .pupil {
+    height: 3px;
+    width: 18px;
+    border-radius: 10px;
+}
+
+/* =========================
+   BOUCHE (AMÉLIORÉE)
+========================= */
+
+.mouth {
+    width: 55px;
+    height: 18px;
+    margin-top: 14px;
+
+    background: white;
+    border-radius: 999px;
+
+    opacity: 0;
+    transform: scale(0.6);
+    transition: 0.3s ease;
+}
+
+/* effet sourire (léger) */
+.awake .mouth {
+    opacity: 1;
+    transform: scale(1);
+
+    /* illusion sourire subtil */
+    clip-path: ellipse(60% 50% at 50% 40%);
+}
+
+/* =========================
+   TEXTE
+========================= */
+
+#dialogue {
+    position: absolute;
+    top: 18%;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+#text {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.5s;
+}
+
+#text.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   CHOIX
+========================= */
+
+#choices {
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 120px;
+
+    opacity: 0;
+    transition: 0.5s;
+}
+
+#choices img {
+    width: 180px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
+}
+
+#choices img:hover {
+    transform: scale(1.15) translateY(-5px);
+    filter: drop-shadow(0 0 40px rgba(59, 130, 246, 0.6));
+}
+
+.hidden {
+    pointer-events: none;
+}
+
+#choices.show {
+    opacity: 1;
+    pointer-events: auto;
 }
