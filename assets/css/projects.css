@@ -1,0 +1,286 @@
+/* =============================================
+   PROJECTS PAGE
+============================================= */
+
+html.page-projects,
+html.page-projects body {
+    overflow-y: auto;
+    height: auto;
+    scroll-behavior: smooth;
+}
+
+/* ── Nav ── */
+
+.pnav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 0 clamp(20px, 5vw, 64px);
+    background: rgba(7, 7, 8, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: border-color 0.3s ease;
+}
+
+.pnav.scrolled {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.pnav-back {
+    display: flex;
+    align-items: center;
+    color: rgba(248, 250, 252, 0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+    flex-shrink: 0;
+}
+
+.pnav-back:hover { color: var(--teal); }
+
+.pnav-brand {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #f8fafc;
+}
+
+.pnav-brand em {
+    font-style: normal;
+    color: var(--teal);
+}
+
+.pnav-count {
+    margin-left: auto;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 500;
+}
+
+/* ── Hero ── */
+
+.phero {
+    margin-top: 60px;
+    padding: clamp(40px, 8vh, 80px) clamp(20px, 5vw, 64px) clamp(24px, 4vh, 48px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.phero-title {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    background: linear-gradient(135deg, #fff 30%, #57e8c3 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+}
+
+.phero-sub {
+    font-size: clamp(11px, 1.1vw, 13px);
+    color: var(--muted);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+/* ── Grid ── */
+
+.pgrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 960px) {
+    .pgrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+    .pgrid { grid-template-columns: 1fr; }
+}
+
+/* ── Card ── */
+
+.pcard {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #0a0d0c;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+.pcard.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pcard--link { cursor: none; }
+
+/* Image de fond */
+.pcard-img {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.52) saturate(0.7);
+    transition: transform 0.65s ease, filter 0.65s ease;
+}
+
+.pcard:hover .pcard-img {
+    transform: scale(1.06);
+    filter: brightness(0.2) saturate(0.4);
+}
+
+/* Gradient bas permanent */
+.pcard-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(to top,
+        rgba(2, 13, 8, 0.96) 0%,
+        rgba(2, 13, 8, 0.2)  45%,
+        rgba(2, 13, 8, 0)    70%
+    );
+}
+
+/* Corps du reveal */
+.pcard-body {
+    width: 100%;
+    padding: clamp(14px, 2.5vw, 26px);
+    transform: translateY(calc(100% - clamp(52px, 8vw, 68px)));
+    transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.pcard:hover .pcard-body {
+    transform: translateY(0);
+}
+
+.pcard-title {
+    font-size: clamp(13px, 1.3vw, 16px);
+    font-weight: 600;
+    color: #f8fafc;
+    line-height: 1.3;
+    margin-bottom: 8px;
+}
+
+/* Desc, tags, actions — apparaissent en cascade */
+.pcard-desc {
+    font-size: clamp(11px, 0.95vw, 13px);
+    color: rgba(248, 250, 252, 0.52);
+    line-height: 1.55;
+    margin-bottom: 12px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.28s ease 0.06s, transform 0.28s ease 0.06s;
+}
+
+.pcard:hover .pcard-desc {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pcard-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 12px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.28s ease 0.12s, transform 0.28s ease 0.12s;
+}
+
+.pcard:hover .pcard-tags {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ptag {
+    font-size: 9px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 4px;
+    font-weight: 500;
+    background: rgba(22, 230, 148, 0.1);
+    color: var(--teal);
+    border: 1px solid rgba(22, 230, 148, 0.18);
+}
+
+.pcard-actions {
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.28s ease 0.18s, transform 0.28s ease 0.18s;
+}
+
+.pcard:hover .pcard-actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pbtn {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 5px 12px;
+    border-radius: 5px;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.pbtn--live {
+    background: var(--teal);
+    color: #020d08;
+}
+
+.pbtn--live:hover { background: #57e8c3; }
+
+.pbtn--code {
+    border: 1px solid rgba(248, 250, 252, 0.18);
+    color: rgba(248, 250, 252, 0.65);
+}
+
+.pbtn--code:hover {
+    border-color: rgba(248, 250, 252, 0.38);
+    color: #f8fafc;
+}
+
+/* Année */
+.pcard-year {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(248, 250, 252, 0.28);
+    font-weight: 400;
+    transition: opacity 0.3s;
+}
+
+.pcard:hover .pcard-year { opacity: 0; }
+
+/* ── Footer ── */
+
+.pfooter {
+    padding: clamp(24px, 5vh, 48px) clamp(20px, 5vw, 64px);
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}

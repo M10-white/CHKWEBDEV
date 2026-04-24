@@ -1,6 +1,8 @@
 RewriteEngine On
 
-RewriteRule ^game$ index.php?page=games [L]
+RewriteRule ^projects$ index.php?page=projects [L]
+RewriteRule ^games$    index.php?page=games    [L]
+RewriteRule ^game$     index.php?page=games    [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
