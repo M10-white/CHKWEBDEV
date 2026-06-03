@@ -1,8 +1,8 @@
 <?php $projects = require __DIR__ . '/../data/projects.php'; ?>
 
-<!-- Curseur custom -->
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
+<!-- Curseur custom (décoratif) -->
+<div id="cursor" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
 
 <!-- Navigation -->
 <nav class="pnav" id="pnav">
@@ -22,7 +22,7 @@
 </header>
 
 <!-- Grille des projets -->
-<main class="pgrid">
+<main class="pgrid" id="main-content" tabindex="-1">
 <?php foreach ($projects as $p):
     $hasLink = isset($p['href']) || isset($p['repo']);
     $mainHref = $p['href'] ?? $p['repo'] ?? null;
@@ -30,6 +30,7 @@
     <article class="pcard<?= $hasLink ? ' pcard--link' : '' ?>"
         <?php if ($mainHref): ?>data-href="<?= htmlspecialchars($mainHref) ?>"<?php endif; ?>
         <?php if (isset($p['repo'])): ?>data-repo="<?= htmlspecialchars($p['repo']) ?>"<?php endif; ?>
+        <?php if ($hasLink): ?>tabindex="0" role="link" aria-label="<?= htmlspecialchars($p['title']) ?>"<?php endif; ?>
     >
         <!-- Image de fond -->
         <div class="pcard-img" style="background-image:url('<?= htmlspecialchars($p['cover']) ?>')"></div>

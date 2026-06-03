@@ -55,4 +55,12 @@ document.querySelectorAll('.pcard--link').forEach(card => {
         const href = card.dataset.href || card.dataset.repo
         if (href) window.open(href, '_blank', 'noopener')
     })
+
+    card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            const href = card.dataset.href || card.dataset.repo
+            if (href) window.open(href, '_blank', 'noopener')
+        }
+    })
 })

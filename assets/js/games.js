@@ -4,7 +4,10 @@
 ================================================= */
 
 import * as THREE from 'three'
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import { OrbitControls }      from 'three/addons/controls/OrbitControls.js'
+import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js'
+
+let MODE = null
 
 /* ── Palette boîtiers ── */
 const PALETTE = [0xe63946, 0x8e35c0, 0x3a86ff, 0xfb5607, 0x06d6a0, 0xffbe0b, 0xff006e, 0x57e8c3]
@@ -18,15 +21,16 @@ const GAMES = (window.GAMES_DATA || []).map((g, i) => ({
     link:   g.link || null,
     year:   String(g.year),
     color:  PALETTE[i % PALETTE.length],
-    status: g.src ? 'playable' : 'dev'
+    status: g.src ? 'playable' : 'dev',
+    cover:  g.cover || null,
 }))
 
 /* ── Résolution PS1 dynamique ── */
 function ps1Res() {
-    const div = window.innerWidth > 1400 ? 5 : 4
+    const div = window.innerWidth > 1400 ? 3 : 2.5
     return {
-        w: Math.round(Math.max(window.innerWidth  / div, 280)),
-        h: Math.round(Math.max(window.innerHeight / div, 200))
+        w: Math.round(Math.max(window.innerWidth  / div, 320)),
+        h: Math.round(Math.max(window.innerHeight / div, 240))
     }
 }
 
@@ -64,6 +68,7 @@ controls.minPolarAngle  = Math.PI * 0.24
 controls.maxPolarAngle  = Math.PI * 0.58
 controls.minAzimuthAngle = -Math.PI * 0.52
 controls.maxAzimuthAngle =  Math.PI * 0.52
+controls.enabled = false
 controls.update()
 
 window.addEventListener('resize', () => {
@@ -215,7 +220,7 @@ function box(w, h, d, mat, x = 0, y = 0, z = 0, ry = 0) {
     return mesh
 }
 
-/* ── Texture étiquette canvas ── */
+/* ── Texture étiquette canvas (avec cover image async) ── */
 function makeLabel(game) {
     const c = document.createElement('canvas')
     c.width = 128; c.height = 128
@@ -224,54 +229,70 @@ function makeLabel(game) {
     const g = (game.color >> 8)  & 0xff
     const b =  game.color        & 0xff
 
-    // Fond dégradé
-    const grad = ctx.createLinearGradient(0, 0, 128, 128)
-    grad.addColorStop(0, `rgb(${Math.min(r+55,255)},${Math.min(g+55,255)},${Math.min(b+55,255)})`)
-    grad.addColorStop(1, `rgb(${Math.floor(r*0.35)},${Math.floor(g*0.35)},${Math.floor(b*0.35)})`)
-    ctx.fillStyle = grad
-    ctx.fillRect(0, 0, 128, 128)
+    function drawBase(coverImg) {
+        ctx.clearRect(0, 0, 128, 128)
 
-    // Motif pixel-art décoratif
-    ctx.fillStyle = 'rgba(255,255,255,0.07)'
-    for (let i = 0; i < 128; i += 8)
-        for (let j = 0; j < 76; j += 8)
-            if ((i + j) % 16 === 0) ctx.fillRect(i, j, 8, 8)
+        if (coverImg) {
+            ctx.drawImage(coverImg, 0, 0, 128, 97)
+            ctx.fillStyle = 'rgba(0,0,0,0.28)'
+            ctx.fillRect(0, 0, 128, 97)
+        } else {
+            const grad = ctx.createLinearGradient(0, 0, 128, 128)
+            grad.addColorStop(0, `rgb(${Math.min(r+55,255)},${Math.min(g+55,255)},${Math.min(b+55,255)})`)
+            grad.addColorStop(1, `rgb(${Math.floor(r*0.35)},${Math.floor(g*0.35)},${Math.floor(b*0.35)})`)
+            ctx.fillStyle = grad
+            ctx.fillRect(0, 0, 128, 128)
+            ctx.fillStyle = 'rgba(255,255,255,0.07)'
+            for (let i = 0; i < 128; i += 8)
+                for (let j = 17; j < 80; j += 8)
+                    if ((i + j) % 16 === 0) ctx.fillRect(i, j, 8, 8)
+        }
 
-    // Header — bande de couleur + label éditeur
-    ctx.fillStyle = `rgba(${r},${g},${b},0.85)`
-    ctx.fillRect(0, 0, 128, 17)
-    ctx.fillStyle = 'rgba(0,0,0,0.6)'
-    ctx.font = 'bold 8px monospace'
-    ctx.textAlign = 'left';  ctx.fillText('CHK', 4, 12)
-    ctx.textAlign = 'right'; ctx.fillText('GAME', 124, 12)
+        // Header bande
+        ctx.fillStyle = `rgba(${r},${g},${b},0.88)`
+        ctx.fillRect(0, 0, 128, 17)
+        ctx.fillStyle = 'rgba(0,0,0,0.65)'
+        ctx.font = 'bold 8px monospace'
+        ctx.textAlign = 'left';  ctx.fillText('CHK', 4, 12)
+        ctx.textAlign = 'right'; ctx.fillText('GAME', 124, 12)
 
-    // Zone titre sombre
-    ctx.fillStyle = 'rgba(0,0,0,0.62)'
-    ctx.fillRect(0, 79, 128, 49)
+        // Zone titre sombre
+        ctx.fillStyle = 'rgba(0,0,0,0.72)'
+        ctx.fillRect(0, 79, 128, 49)
 
-    // Titre (avec retour à la ligne)
-    ctx.fillStyle = '#ffffff'
-    ctx.font = 'bold 11px sans-serif'
-    ctx.textAlign = 'center'
-    const words = game.title.split(' ')
-    let line = '', lines = []
-    words.forEach(w => {
-        const test = line + w + ' '
-        if (ctx.measureText(test).width > 116) { lines.push(line.trim()); line = w + ' ' }
-        else line = test
-    })
-    lines.push(line.trim())
-    const ty = 93 - (lines.length - 1) * 7
-    lines.forEach((l, i) => ctx.fillText(l, 64, ty + i * 14, 120))
+        ctx.fillStyle = '#ffffff'
+        ctx.font = 'bold 11px sans-serif'
+        ctx.textAlign = 'center'
+        const words = game.title.split(' ')
+        let line = '', lines = []
+        words.forEach(w => {
+            const test = line + w + ' '
+            if (ctx.measureText(test).width > 116) { lines.push(line.trim()); line = w + ' ' }
+            else line = test
+        })
+        lines.push(line.trim())
+        const ty = 93 - (lines.length - 1) * 7
+        lines.forEach((l, i) => ctx.fillText(l, 64, ty + i * 14, 120))
 
-    // Année en couleur
-    ctx.fillStyle = `rgba(${Math.min(r+100,255)},${Math.min(g+100,255)},${Math.min(b+100,255)},0.9)`
-    ctx.font = '8px monospace'
-    ctx.fillText(game.year, 64, 122)
+        ctx.fillStyle = `rgba(${Math.min(r+100,255)},${Math.min(g+100,255)},${Math.min(b+100,255)},0.9)`
+        ctx.font = '8px monospace'
+        ctx.fillText(game.year, 64, 122)
+    }
+
+    drawBase(null)
 
     const tex = new THREE.CanvasTexture(c)
     tex.magFilter = THREE.NearestFilter
     tex.minFilter = THREE.NearestFilter
+
+    if (game.cover) {
+        const img = new Image()
+        img.crossOrigin = 'anonymous'
+        img.onload  = () => { drawBase(img); tex.needsUpdate = true }
+        img.onerror = () => {}
+        img.src = game.cover
+    }
+
     return tex
 }
 
@@ -666,6 +687,102 @@ function playThunder() {
 }
 
 /* ═══════════════════════════════════════════════
+   MODE SELECTION
+═══════════════════════════════════════════════ */
+const modeSelectEl = document.getElementById('mode-select')
+const fpsUiEl      = document.getElementById('fps-ui')
+const fpsInteractEl= document.getElementById('fps-interact')
+const fpsLockHint  = document.getElementById('fps-lock-hint')
+const gnavHint     = document.querySelector('.gnav-hint')
+
+modeSelectEl.querySelectorAll('.ms-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        initAudio()
+        MODE = btn.dataset.mode
+        modeSelectEl.style.opacity = '0'
+        modeSelectEl.style.pointerEvents = 'none'
+        setTimeout(() => modeSelectEl.remove(), 600)
+
+        if (MODE === 'free') {
+            controls.enabled = true
+            gnavHint.textContent = 'Glisser pour explorer · Cliquer sur un jeu'
+        } else {
+            initFPS()
+            gnavHint.textContent = 'ZQSD · Marcher  ·  E · Interagir  ·  Échap · Déverrouiller'
+        }
+    })
+})
+
+/* ── État FPS ── */
+let fpsControls   = null
+let fpsLookTarget = null
+const fpsMoveKeys  = { f: false, b: false, l: false, r: false }
+const fpsCenterRay = new THREE.Raycaster()
+
+function initFPS() {
+    camera.position.set(0, 1.7, 3.5)
+    camera.rotation.set(0, 0, 0)
+
+    fpsControls = new PointerLockControls(camera, renderer.domElement)
+
+    fpsControls.addEventListener('lock',   () => { fpsLockHint.style.display = 'none' })
+    fpsControls.addEventListener('unlock', () => { fpsLockHint.style.display = 'block' })
+
+    document.addEventListener('keydown', e => {
+        if (MODE !== 'fps') return
+        switch (e.code) {
+            case 'KeyW': case 'KeyZ': case 'ArrowUp':    fpsMoveKeys.f = true; break
+            case 'KeyS': case 'ArrowDown':                fpsMoveKeys.b = true; break
+            case 'KeyA': case 'KeyQ': case 'ArrowLeft':  fpsMoveKeys.l = true; break
+            case 'KeyD': case 'ArrowRight':               fpsMoveKeys.r = true; break
+            case 'KeyE':
+                if (fpsLookTarget) openPanel(fpsLookTarget.userData.game)
+                break
+        }
+    })
+
+    document.addEventListener('keyup', e => {
+        if (MODE !== 'fps') return
+        switch (e.code) {
+            case 'KeyW': case 'KeyZ': case 'ArrowUp':    fpsMoveKeys.f = false; break
+            case 'KeyS': case 'ArrowDown':                fpsMoveKeys.b = false; break
+            case 'KeyA': case 'KeyQ': case 'ArrowLeft':  fpsMoveKeys.l = false; break
+            case 'KeyD': case 'ArrowRight':               fpsMoveKeys.r = false; break
+        }
+    })
+
+    fpsUiEl.style.display = 'block'
+}
+
+function updateFPS(delta) {
+    if (!fpsControls?.isLocked) return
+
+    const spd = 4.2 * delta
+    const fwd = new THREE.Vector3()
+    camera.getWorldDirection(fwd); fwd.y = 0; fwd.normalize()
+    const right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0,1,0)).normalize()
+
+    if (fpsMoveKeys.f) camera.position.addScaledVector(fwd,   spd)
+    if (fpsMoveKeys.b) camera.position.addScaledVector(fwd,  -spd)
+    if (fpsMoveKeys.l) camera.position.addScaledVector(right, -spd)
+    if (fpsMoveKeys.r) camera.position.addScaledVector(right,  spd)
+
+    camera.position.x = Math.max(-5.4, Math.min(5.4, camera.position.x))
+    camera.position.z = Math.max(-4.6, Math.min(4.6, camera.position.z))
+    camera.position.y = 1.7
+
+    fpsCenterRay.setFromCamera(new THREE.Vector2(0, 0), camera)
+    const hits = fpsCenterRay.intersectObjects(clickables, true)
+    if (hits.length > 0 && hits[0].distance < 3.2) {
+        fpsLookTarget = findGame(hits[0].object)
+        fpsInteractEl.style.opacity = '1'
+    } else {
+        fpsLookTarget = null
+        fpsInteractEl.style.opacity = '0'
+    }
+}
+
+/* ═══════════════════════════════════════════════
    INTERACTION — Raycaster
 ═══════════════════════════════════════════════ */
 const raycaster = new THREE.Raycaster()
@@ -695,6 +812,7 @@ function findGame(obj) {
 }
 
 canvas.addEventListener('mousemove', e => {
+    if (MODE !== 'free') return
     if (!audioCtx) initAudio()
     ptrFromEvent(e)
     raycaster.setFromCamera(pointer, camera)
@@ -711,6 +829,16 @@ canvas.addEventListener('mousemove', e => {
 
 canvas.addEventListener('click', e => {
     if (!audioCtx) initAudio()
+
+    if (MODE === 'fps') {
+        if (fpsControls && !fpsControls.isLocked) {
+            fpsControls.lock()
+        } else if (fpsLookTarget) {
+            openPanel(fpsLookTarget.userData.game)
+        }
+        return
+    }
+
     ptrFromEvent(e)
     raycaster.setFromCamera(pointer, camera)
     const hits = raycaster.intersectObjects(clickables, true)
@@ -729,10 +857,8 @@ function openPanel(g) {
     let actions = ''
     if (g.status === 'dev')
         actions += `<span class="gp-status">En développement</span>`
-    if (g.src && !g.src.startsWith('http://localhost'))
-        actions += `<a href="${g.src}" target="_blank" rel="noopener" class="gbtn gbtn--play">Jouer →</a>`
     if (g.link)
-        actions += `<a href="${g.link}" target="_blank" rel="noopener" class="gbtn gbtn--code">Code</a>`
+        actions += `<a href="${g.link}" target="_blank" rel="noopener" class="gbtn gbtn--code">Code source</a>`
 
     gpActions.innerHTML = actions
     panelEl.setAttribute('aria-hidden', 'false')
@@ -752,9 +878,13 @@ window.addEventListener('keydown', e => { if (e.key === 'Escape' && panelOpen) c
    BOUCLE DE RENDU
 ═══════════════════════════════════════════════ */
 let t = 0
+let prevTime = performance.now()
 
 function animate() {
     requestAnimationFrame(animate)
+    const now   = performance.now()
+    const delta = Math.min((now - prevTime) / 1000, 0.1)
+    prevTime = now
     t++
 
     // Pluie extérieure
@@ -789,7 +919,9 @@ function animate() {
     }
     updateLightning()
 
-    controls.update()
+    if (MODE === 'free') controls.update()
+    else if (MODE === 'fps') updateFPS(delta)
+
     renderer.render(scene, camera)
 }
 

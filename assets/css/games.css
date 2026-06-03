@@ -222,6 +222,195 @@ html.page-games *::after {
     color: #f8fafc;
 }
 
+/* ── Sélection de mode ── */
+
+#mode-select {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(6, 8, 15, 0.97);
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(0,0,0,0.12) 0px, rgba(0,0,0,0.12) 1px,
+        transparent 1px, transparent 3px
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    transition: opacity 0.55s ease;
+}
+
+.ms-brand {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(248,250,252,0.30);
+    margin-bottom: 4px;
+}
+
+.ms-brand em { font-style: normal; color: var(--teal); }
+
+.ms-title {
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #f8fafc;
+    margin-bottom: 10px;
+}
+
+.ms-options {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.ms-sep {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(248,250,252,0.18);
+}
+
+.ms-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: clamp(22px,4vh,34px) clamp(26px,4vw,44px);
+    background: rgba(255,255,255,0.022);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    cursor: pointer;
+    min-width: 190px;
+    transition: border-color 0.25s, background 0.25s, transform 0.25s;
+}
+
+.ms-btn:hover {
+    border-color: rgba(22,230,148,0.42);
+    background: rgba(22,230,148,0.045);
+    transform: translateY(-5px);
+}
+
+.ms-btn--fps:hover {
+    border-color: rgba(77,217,240,0.42);
+    background: rgba(77,217,240,0.045);
+}
+
+.ms-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.09);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(248,250,252,0.42);
+    transition: color 0.25s, border-color 0.25s;
+}
+
+.ms-icon svg { width: 20px; height: 20px; }
+
+.ms-btn:hover      .ms-icon { color: var(--teal); border-color: rgba(22,230,148,0.38); }
+.ms-btn--fps:hover .ms-icon { color: #4dd9f0;     border-color: rgba(77,217,240,0.38); }
+
+.ms-name {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #f8fafc;
+}
+
+.ms-desc {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(248,250,252,0.28);
+    text-align: center;
+}
+
+.ms-hint {
+    font-size: 10px;
+    color: rgba(248,250,252,0.14);
+    margin-top: 12px;
+    animation: ms-blink 2.2s ease-in-out infinite;
+}
+
+@keyframes ms-blink {
+    0%, 100% { opacity: 0.14; }
+    50%       { opacity: 0.55; }
+}
+
+@media (max-width: 480px) {
+    .ms-options { flex-direction: column; }
+    .ms-sep { display: none; }
+}
+
+/* ── UI Première Personne ── */
+
+#fps-ui {
+    display: none;
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 20;
+}
+
+#fps-crosshair {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px; height: 18px;
+}
+
+#fps-crosshair span {
+    position: absolute;
+    background: rgba(255,255,255,0.72);
+    border-radius: 1px;
+}
+
+#fps-crosshair span:first-child {
+    width: 2px; height: 100%;
+    left: 50%; top: 0;
+    transform: translateX(-50%);
+}
+
+#fps-crosshair span:last-child {
+    width: 100%; height: 2px;
+    top: 50%; left: 0;
+    transform: translateY(-50%);
+}
+
+#fps-interact {
+    position: absolute;
+    top: calc(50% + 22px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    color: var(--teal);
+    opacity: 0;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+    text-shadow: 0 0 12px rgba(22,230,148,0.5);
+}
+
+#fps-lock-hint {
+    position: absolute;
+    bottom: 72px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(248,250,252,0.32);
+    white-space: nowrap;
+    animation: ms-blink 2.2s ease-in-out infinite;
+}
+
 /* ── Status "en dev" badge ── */
 
 .gp-status {

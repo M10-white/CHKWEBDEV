@@ -1,0 +1,21 @@
+# Dépendances
+/vendor/
+
+# Config sensible — NE JAMAIS committer
+/config/mail.php
+
+# Environnement
+.env
+.env.local
+
+# IDE
+.vscode/sftp.json
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

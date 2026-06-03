@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /api/
+Disallow: /config/
+Disallow: /lib/
+
+Sitemap: https://chkwebdev.fr/sitemap.xml

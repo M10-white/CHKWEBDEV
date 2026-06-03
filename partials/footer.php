@@ -7,5 +7,10 @@
 <?php elseif ($page === 'games'): ?>
     <script type="module" src="assets/js/games.js"></script>
 <?php endif; ?>
+<noscript>
+    <p style="position:fixed;bottom:0;left:0;right:0;padding:12px;background:#1a1a1a;color:#f8fafc;text-align:center;font-family:sans-serif;font-size:14px;z-index:9999;">
+        Ce site nécessite JavaScript pour fonctionner. Veuillez l'activer dans votre navigateur.
+    </p>
+</noscript>
 </body>
 </html>

@@ -1,34 +1,38 @@
-<div id="scene">
+<main id="scene">
 
-    <!-- Curseur custom -->
-    <div id="cursor"></div>
-    <div id="cursor-ring"></div>
+    <!-- Cible skip link -->
+    <span id="main-content" tabindex="-1" class="sr-only"></span>
+
+    <!-- Curseur custom (décoratif) -->
+    <div id="cursor" aria-hidden="true"></div>
+    <div id="cursor-ring" aria-hidden="true"></div>
 
     <!-- Canvas : fond étoilé + mascotte -->
-    <canvas id="chr"></canvas>
+    <canvas id="chr" aria-hidden="true"></canvas>
 
     <!-- Overlay de transition -->
-    <div id="overlay"></div>
+    <div id="overlay" aria-hidden="true"></div>
 
     <!-- Texte dialogue centre haut -->
-    <div id="dialogue">
+    <div id="dialogue" aria-live="polite" aria-atomic="true">
+        <h1 class="sr-only">Brahim Chaouki — Développeur Fullstack &amp; Créateur de jeux</h1>
         <span id="text"></span>
         <span id="subtext"></span>
     </div>
 
     <!-- Paroles du personnage — sous lui -->
-    <div id="speech">
+    <div id="speech" aria-live="polite" aria-atomic="true">
         <span id="speech-text"></span>
     </div>
 
     <!-- Univers gauche : CHKWEBDEV -->
-    <div class="universe" id="u-dev" data-href="projects">
-        <span class="uni-label">Portfolio & Projets</span>
+    <div class="universe" id="u-dev" data-href="projects" role="link" tabindex="-1" aria-label="Portfolio et Projets — 13 projets">
+        <span class="uni-label">Portfolio &amp; Projets</span>
         <span class="uni-count">13 projets</span>
     </div>
 
     <!-- Univers droit : CHKWEBDEV.GAME -->
-    <div class="universe" id="u-game" data-href="games">
+    <div class="universe" id="u-game" data-href="games" role="link" tabindex="-1" aria-label="Jeux Interactifs — En cours">
         <span class="uni-label">Jeux Interactifs</span>
         <span class="uni-count">En cours →</span>
     </div>
@@ -53,11 +57,47 @@
                 <path d="M0 1.794C0 .803.82 0 1.829 0h20.342C23.18 0 24 .803 24 1.794v20.412C24 23.197 23.18 24 22.171 24H1.83C.82 24 0 23.197 0 22.206V1.794zm4.708 3.476C4.148 5.65 3.67 6.234 3.67 6.819v.904c0 1.147 1.071 2.101 2.033 2.101.963 0 1.75-.864 1.75-1.927v-.082c0 1.063.894 1.927 1.857 1.927h.978c.963 0 1.857-.864 1.857-1.927v.082c0 1.063.787 1.927 1.75 1.927.963 0 2.033-.954 2.033-2.1v-.905c0-.585-.478-1.17-1.038-1.549-1.024-.68-2.726-.932-4.7-.932-1.972 0-3.498.252-4.522.932zm9.038 8.505c-.278-.276-.63-.464-1.107-.528a1.52 1.52 0 00-.16-.008H11.52c-.055 0-.108.003-.16.008-.477.064-.829.252-1.107.528-.465.46-.636 1.087-.636 1.66v.22h4.764v-.22c0-.573-.17-1.2-.635-1.66zm-9.27-1.007h12.048v1.11H4.476v-1.11zm0 2.768h12.048v1.11H4.476v-1.11z"/>
             </svg>
         </a>
-        <a href="mailto:chkwebdev1@gmail.com" class="soc-link" aria-label="Email">
+        <button type="button" id="soc-mail" class="soc-link" aria-label="Formulaire de contact">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
             </svg>
-        </a>
+        </button>
     </div>
 
-</div>
+    <!-- Formulaire de contact -->
+    <div id="contact-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cf-title">
+        <div id="contact-box">
+            <button type="button" id="contact-close" aria-label="Fermer">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+            <p class="cf-overline">Restons en contact</p>
+            <h2 class="cf-title" id="cf-title">Me contacter</h2>
+            <div aria-live="assertive" aria-atomic="true" class="sr-only" id="cf-announce"></div>
+            <form id="contact-form" novalidate>
+                <!-- CSRF token -->
+                <input type="hidden" id="cf-token" name="_token" value="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '') ?>">
+                <!-- Honeypot : rempli uniquement par les bots -->
+                <div class="cf-hp" aria-hidden="true">
+                    <label for="cf-website">Ne pas remplir</label>
+                    <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off">
+                </div>
+                <div class="cf-field">
+                    <label for="cf-name">Nom</label>
+                    <input id="cf-name" type="text" name="name" placeholder="Votre nom" autocomplete="name" required aria-required="true">
+                </div>
+                <div class="cf-field">
+                    <label for="cf-email">Email</label>
+                    <input id="cf-email" type="email" name="email" placeholder="votre@email.com" autocomplete="email" required aria-required="true">
+                </div>
+                <div class="cf-field">
+                    <label for="cf-msg">Message</label>
+                    <textarea id="cf-msg" name="message" rows="4" placeholder="Votre message..." required aria-required="true"></textarea>
+                </div>
+                <button type="submit" class="cf-submit">Envoyer →</button>
+            </form>
+        </div>
+    </div>
+
+</main>
